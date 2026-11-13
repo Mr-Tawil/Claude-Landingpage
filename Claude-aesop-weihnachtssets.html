@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aesop | Das Geschenk, das passt</title>
+<meta name="description" content="Kuratierte Weihnachtssets von Aesop, sortiert nach der beschenkten Person. Kostenlose Geschenkverpackung, kostenloser Versand in Deutschland ab 60 €.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== 1. Design-Tokens ===== */
+:root{
+  --creme:#FFFEF2;      /* Hintergrund */
+  --graphit:#333333;    /* Text */
+  --terrakotta:#945C26; /* Akzent, Buttons */
+  --bernstein:#E9962D;  /* sparsam */
+  --taupe:#F7ECDD;      /* Karten */
+  --braun:#5C2E1F;      /* Überschriften */
+  --linie:rgba(92,46,31,.22);
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Inter Tight",system-ui,sans-serif;
+  --rand:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--creme);color:var(--graphit);font:400 1rem/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--terrakotta);outline-offset:3px}
+
+/* ===== 2. Typografie ===== */
+h1,h2,h3{font-family:var(--serif);color:var(--braun);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+h1{font-size:clamp(2.9rem,12vw,5.6rem)}
+h2{font-size:clamp(2.1rem,8vw,3.4rem);margin-bottom:.9rem}
+h3{font-size:1.7rem;line-height:1.15}
+.lead{font-size:1.06rem;max-width:34rem}
+.klein{font-size:.88rem;color:#5b5b5b}
+
+/* ===== 3. Layout ===== */
+.wrap{padding:0 var(--rand);max-width:1160px;margin:0 auto}
+section{padding:4.5rem 0;border-top:1px solid var(--linie)}
+#hero{border-top:0}
+
+/* ===== 4. Buttons (min. 48 px) ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 1.8rem;
+  background:var(--terrakotta);color:var(--creme);border:1px solid var(--terrakotta);border-radius:0;
+  font:500 .98rem var(--sans);letter-spacing:.02em;text-decoration:none;cursor:pointer;
+  transition:background .25s,color .25s,transform .2s}
+.btn:hover{background:var(--braun);border-color:var(--braun);transform:translateY(-2px)}
+.btn:active{transform:translateY(1px)}
+.btn.leise{background:transparent;color:var(--braun);border-color:var(--braun)}
+.btn.leise:hover{background:var(--braun);color:var(--creme)}
+.btn.voll{width:100%}
+
+/* ===== 5. Header ===== */
+header{position:sticky;top:0;z-index:20;background:var(--creme);border-bottom:1px solid var(--linie)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo{font-family:var(--serif);font-size:1.9rem;font-weight:500;color:var(--braun);text-decoration:none;letter-spacing:.02em}
+.korb{position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:48px;color:var(--braun);text-decoration:none;transition:transform .2s}
+.korb:hover{transform:translateY(-2px)}
+.korb svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.2}
+.korb b{position:absolute;top:5px;right:3px;min-width:18px;height:18px;padding:0 4px;background:var(--bernstein);color:var(--graphit);
+  font:600 .7rem/18px var(--sans);text-align:center}
+.korb b[hidden]{display:none}
+
+/* ===== 6. Bildplatzhalter ===== */
+.bild{display:flex;align-items:flex-end;background:var(--taupe);border:1px solid var(--linie);color:var(--braun);
+  font:italic 400 1rem var(--serif);padding:.9rem 1rem;aspect-ratio:4/5;
+  background-image:linear-gradient(160deg,rgba(148,92,38,.10),rgba(247,236,221,0) 55%)}
+.bild.breit{aspect-ratio:4/3}
+
+/* ===== 7. Hero ===== */
+#hero{padding:2.5rem 0 4rem}
+#hero .bild{margin:2rem 0 1.6rem;aspect-ratio:1/1}
+#hero h1{margin-bottom:1.1rem}
+.versprechen{list-style:none;margin:1.4rem 0 2rem;border-top:1px solid var(--linie)}
+.versprechen li{padding:.7rem 0;border-bottom:1px solid var(--linie);font-size:.95rem}
+
+/* ===== 8. Auswahl ===== */
+.filter{display:grid;gap:.7rem;margin:1.8rem 0 1rem}
+.chip{min-height:56px;padding:0 1.2rem;background:transparent;border:1px solid var(--braun);border-radius:0;color:var(--braun);
+  font:500 1rem var(--sans);text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+  transition:background .25s,color .25s,transform .2s}
+.chip span{font-size:.85rem;opacity:.75}
+.chip:hover{transform:translateX(4px);background:var(--taupe)}
+.chip[aria-pressed="true"]{background:var(--braun);color:var(--creme)}
+.chip:active{transform:translateX(0)}
+#hinweis{min-height:1.6em;margin-bottom:1.6rem}
+
+/* ===== 9. Set-Karten ===== */
+.karten{display:grid;gap:1.4rem}
+.karte{background:var(--taupe);border:1px solid var(--linie);display:flex;flex-direction:column}
+.karte[hidden]{display:none}
+.karte .bild{border:0;border-bottom:1px solid var(--linie);aspect-ratio:4/3;background-color:#f2e3cd}
+.karte .inhalt{padding:1.4rem;display:flex;flex-direction:column;gap:.9rem;flex:1}
+.preis{font:500 1.3rem var(--serif);color:var(--terrakotta)}
+.karte ul{list-style:none;border-top:1px solid var(--linie)}
+.karte li{padding:.5rem 0;border-bottom:1px solid var(--linie);font-size:.92rem;display:flex;justify-content:space-between;gap:1rem}
+.karte li em{font-style:normal;color:#6b6b6b;white-space:nowrap}
+.karte .btn{margin-top:auto}
+.fuss{margin-top:2rem}
+
+/* ===== 10. Vertrauen ===== */
+.zeichen{display:grid;gap:0;border:1px solid var(--linie);margin:2rem 0}
+.zeichen div{padding:1.3rem;border-bottom:1px solid var(--linie)}
+.zeichen div:last-child{border-bottom:0}
+.zeichen h3{font-size:1.45rem;margin-bottom:.3rem}
+.stimmen{display:grid;gap:1.4rem;margin-bottom:2.2rem}
+blockquote{border-left:1px solid var(--terrakotta);padding-left:1.2rem}
+blockquote p{font:italic 400 1.45rem/1.3 var(--serif);color:var(--braun);margin-bottom:.6rem}
+
+/* ===== 11. Lieferung und FAQ ===== */
+.frist{background:var(--braun);color:var(--creme);padding:1.6rem;margin:1.8rem 0 2.2rem}
+.frist h3{color:var(--creme);font-size:1.5rem;margin-bottom:.4rem}
+.frist p{color:#f0e3d2}
+.faq{border-top:1px solid var(--linie);margin-bottom:2.4rem}
+.faq button{width:100%;min-height:56px;background:none;border:0;border-bottom:1px solid var(--linie);padding:.6rem 0;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;text-align:left;cursor:pointer;
+  font:500 1.02rem var(--sans);color:var(--braun);transition:color .2s}
+.faq button:hover{color:var(--terrakotta)}
+.faq button i{font:normal 300 1.6rem/1 var(--sans);transition:transform .3s}
+.faq button[aria-expanded="true"] i{transform:rotate(45deg)}
+.antwort{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.antwort.offen{grid-template-rows:1fr}
+.antwort div{overflow:hidden}
+.antwort p{padding:.9rem 0 1.3rem;border-bottom:1px solid var(--linie);font-size:.95rem}
+
+/* ===== 12. Footer ===== */
+footer{background:var(--taupe);padding:3rem 0 2.4rem;border-top:1px solid var(--linie)}
+footer .logo{display:inline-block;margin-bottom:.8rem}
+footer nav{display:flex;flex-wrap:wrap;gap:.2rem 1.4rem;margin:1.2rem 0}
+footer nav a{display:inline-flex;align-items:center;min-height:44px;font-size:.92rem;text-decoration:none;border-bottom:1px solid transparent}
+footer nav a:hover{border-color:var(--terrakotta)}
+
+/* ===== 13. Fade-in beim Scrollen ===== */
+.fade{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.fade.sichtbar{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important}
+  .fade{opacity:1;transform:none}
+}
+
+/* ===== 14. Desktop-Erweiterung ===== */
+@media (min-width:820px){
+  :root{--rand:48px}
+  section{padding:7rem 0}
+  #hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center}
+  #hero .bild{grid-column:2;grid-row:1;margin:0;aspect-ratio:4/5}
+  .filter{grid-template-columns:repeat(3,1fr)}
+  .karten{grid-template-columns:repeat(3,1fr)}
+  .zeichen{grid-template-columns:repeat(3,1fr)}
+  .zeichen div{border-bottom:0;border-right:1px solid var(--linie)}
+  .zeichen div:last-child{border-right:0}
+  .stimmen{grid-template-columns:1fr 1fr;gap:3rem}
+  .btn.voll{width:auto}
+  .zweispaltig{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Sticky Header ===== -->
+<header>
+  <div class="wrap">
+    <a class="logo" href="#hero" aria-label="Aesop, zum Seitenanfang">Aesop</a>
+    <a class="korb" href="#sets" aria-label="Warenkorb">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <b id="korbZahl" hidden>0</b>
+    </a>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== Abschnitt 1: Was ist das und warum ist es das richtige Geschenk? ===== -->
+<section id="hero">
+  <div class="wrap">
+    <div class="fade">
+      <h1>Das Geschenk, das passt.</h1>
+      <p class="lead">Kuratierte Weihnachtssets für Menschen, die Sie gut kennen, oder gerade erst besser kennenlernen. Sorgfältig zusammengestellt und ab etwa 40 € erhältlich.</p>
+      <ul class="versprechen">
+        <li>Kostenlose Geschenkverpackung</li>
+        <li>Kostenloser Versand in Deutschland ab 60 €</li>
+        <li>Bestellung bis zum 21. Dezember, Lieferung vor Weihnachten</li>
+      </ul>
+      <a class="btn voll" href="#auswahl">Set entdecken</a>
+    </div>
+    <div class="bild fade" role="img" aria-label="Bildplatzhalter Geschenkbox">Bild: Geschenkbox</div>
+  </div>
+</section>
+
+<!-- ===== Abschnitt 2: Welches Set passt zu wem? ===== -->
+<section id="auswahl">
+  <div class="wrap fade">
+    <h2>Für wen suchen Sie?</h2>
+    <p class="lead">Wählen Sie die beschenkte Person. Wir zeigen Ihnen die Sets, die dazu passen.</p>
+    <div class="filter" role="group" aria-label="Sets nach Person filtern">
+      <button class="chip" data-filter="sie" aria-pressed="false">Für sie <span>ab 42 €</span></button>
+      <button class="chip" data-filter="ihn" aria-pressed="false">Für ihn <span>ab 68 €</span></button>
+      <button class="chip" data-filter="eltern" aria-pressed="false">Für Eltern und Freunde <span>ab 42 €</span></button>
+    </div>
+    <p id="hinweis" class="klein" aria-live="polite">Aktuell sehen Sie alle drei Sets.</p>
+    <a class="btn voll" href="#sets">Passende Sets ansehen</a>
+  </div>
+</section>
+
+<!-- ===== Abschnitt 3: Was ist drin und lohnt sich der Preis? ===== -->
+<section id="sets">
+  <div class="wrap">
+    <div class="fade">
+      <h2>Drei Sets, die wir empfehlen</h2>
+      <p class="lead">Jedes Set ist fertig verpackt und enthält Produkte in Originalgrößen. Preise inklusive Mehrwertsteuer.</p>
+    </div>
+    <div class="karten" style="margin-top:2rem">
+
+      <article class="karte fade" data-for="sie eltern" data-name="Das Handpflege-Duo">
+        <div class="bild" role="img" aria-label="Bildplatzhalter Handpflege-Set">Bild: Handpflege-Duo</div>
+        <div class="inhalt">
+          <h3>Das Handpflege-Duo</h3>
+          <p class="preis">42 €</p>
+          <p>Ein kleiner Anfang für den Alltag: reinigt sanft, pflegt nach und riecht nach Zitrus und Holz.</p>
+          <ul>
+            <li>Reinigende Handwäsche <em>60 ml</em></li>
+            <li>Pflegender Handbalsam <em>30 ml</em></li>
+          </ul>
+          <button class="btn voll kaufen">In den Warenkorb</button>
+        </div>
+      </article>
+
+      <article class="karte fade" data-for="ihn eltern" data-name="Der Morgen-Ritus">
+        <div class="bild" role="img" aria-label="Bildplatzhalter Rasur- und Gesichtspflege-Set">Bild: Morgen-Ritus</div>
+        <div class="inhalt">
+          <h3>Der Morgen-Ritus</h3>
+          <p class="preis">68 €</p>
+          <p>Drei Handgriffe für einen ruhigen Start in den Tag. Versandkostenfrei und mit Geschenkverpackung.</p>
+          <ul>
+            <li>Milde Gesichtsreinigung <em>100 ml</em></li>
+            <li>Feuchtigkeitsserum <em>50 ml</em></li>
+            <li>Lippenbalsam <em>10 g</em></li>
+          </ul>
+          <button class="btn voll kaufen">In den Warenkorb</button>
+        </div>
+      </article>
+
+      <article class="karte fade" data-for="sie ihn" data-name="Die Bibliothek">
+        <div class="bild" role="img" aria-label="Bildplatzhalter Duft- und Körperpflege-Set">Bild: Die Bibliothek</div>
+        <div class="inhalt">
+          <h3>Die Bibliothek</h3>
+          <p class="preis">95 €</p>
+          <p>Für besondere Anlässe: ein Duft mit Noten von Zeder und Papier, dazu Pflege für Körper und Hände.</p>
+          <ul>
+            <li>Eau de Parfum <em>50 ml</em></li>
+            <li>Körperbalsam <em>100 ml</em></li>
+            <li>Handbalsam <em>75 ml</em></li>
+          </ul>
+          <button class="btn voll kaufen">In den Warenkorb</button>
+        </div>
+      </article>
+
+    </div>
+    <p class="klein fuss">Alle Sets werden kostenlos als Geschenk verpackt.</p>
+  </div>
+</section>
+
+<!-- ===== Abschnitt 4: Kann ich der Marke vertrauen? ===== -->
+<section id="vertrauen">
+  <div class="wrap fade">
+    <h2>Sorgfalt, die man nachlesen kann</h2>
+    <p class="lead">Jede Rezeptur nennt ihre Inhaltsstoffe offen. Pflanzliche Wirkstoffe und sorgfältig geprüfte Komponenten bilden die Basis.</p>
+    <div class="zeichen">
+      <div><h3>Certified B Corp</h3><p class="klein">Geprüft nach strengen Standards für soziale und ökologische Verantwortung.</p></div>
+      <div><h3>Leaping Bunny</h3><p class="klein">Keine Tierversuche, weder an Produkten noch an Inhaltsstoffen.</p></div>
+      <div><h3>Offene Inhaltsstoffe</h3><p class="klein">Die vollständige Liste finden Sie bei jedem Produkt.</p></div>
+    </div>
+    <div class="stimmen">
+      <blockquote><p>„Das Set kam wunderschön verpackt an. Meine Schwester hat sich sofort darüber gefreut."</p><span class="klein">Lena, 34, Hamburg</span></blockquote>
+      <blockquote><p>„Ich hatte nur zwei Tage Zeit. Die Bestellung kam pünktlich, mehr muss ich nicht wissen."</p><span class="klein">Thomas, 50, München</span></blockquote>
+    </div>
+    <a class="btn voll leise" href="#sets">Sets vergleichen</a>
+  </div>
+</section>
+
+<!-- ===== Abschnitt 5: Kommt es rechtzeitig und schön verpackt an? ===== -->
+<section id="lieferung">
+  <div class="wrap fade">
+    <div class="zweispaltig">
+      <div>
+        <h2>Pünktlich und schön verpackt</h2>
+        <p class="lead">Jedes Set wird sorgfältig in Seidenpapier geschlagen und in einer schlichten Geschenkbox verschlossen. Ohne Aufpreis.</p>
+        <div class="frist">
+          <h3>Bestellfrist: 21. Dezember</h3>
+          <p>Bis dahin bestellte Sets erreichen Sie in Deutschland in der Regel vor Heiligabend. Versand kostenlos ab 60 €.</p>
+        </div>
+      </div>
+      <div>
+        <div class="faq" id="faq">
+          <button aria-expanded="false" aria-controls="a1" id="q1">Wie lange dauert die Lieferung?<i aria-hidden="true">+</i></button>
+          <div class="antwort" id="a1" role="region" aria-labelledby="q1"><div><p>In Deutschland liefern wir in der Regel innerhalb von zwei bis vier Werktagen. Bei Bestellungen bis zum 21. Dezember rechnen wir mit Ankunft vor Weihnachten.</p></div></div>
+
+          <button aria-expanded="false" aria-controls="a2" id="q2">Kann ich das Set direkt an die beschenkte Person senden?<i aria-hidden="true">+</i></button>
+          <div class="antwort" id="a2" role="region" aria-labelledby="q2"><div><p>Ja. Geben Sie im Bestellvorgang einfach eine abweichende Lieferadresse an. Preise sind in der Sendung nicht ausgewiesen.</p></div></div>
+
+          <button aria-expanded="false" aria-controls="a3" id="q3">Was kostet die Geschenkverpackung?<i aria-hidden="true">+</i></button>
+          <div class="antwort" id="a3" role="region" aria-labelledby="q3"><div><p>Nichts. Jedes Set wird kostenlos verpackt, auf Wunsch mit einer handschriftlichen Karte.</p></div></div>
+
+          <button aria-expanded="false" aria-controls="a4" id="q4">Kann ich ein Set zurückgeben?<i aria-hidden="true">+</i></button>
+          <div class="antwort" id="a4" role="region" aria-labelledby="q4"><div><p>Ungeöffnete Sets können Sie innerhalb von 30 Tagen zurücksenden. Die Rücksendung ist in Deutschland kostenfrei.</p></div></div>
+        </div>
+        <a class="btn voll" href="#auswahl">Geschenkset wählen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#hero">Aesop</a>
+    <p class="klein" style="max-width:28rem">Pflege für Haut, Haar und Körper, mit Sorgfalt entwickelt und in ruhiger Gestalt.</p>
+    <nav aria-label="Service">
+      <a href="#faq">Versand und Rückgabe</a>
+      <a href="#vertrauen">Inhaltsstoffe</a>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </nav>
+    <p class="klein">Dies ist ein Konzeptentwurf für ein Kursprojekt.</p>
+  </div>
+</footer>
+
+<script>
+/* ===== Fade-in beim Scrollen ===== */
+const fades = document.querySelectorAll('.fade');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver((eintraege) => {
+    eintraege.forEach(e => { if (e.isIntersecting) { e.target.classList.add('sichtbar'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  fades.forEach(el => io.observe(el));
+} else { fades.forEach(el => el.classList.add('sichtbar')); }
+
+/* ===== Filter: blendet passende Set-Karten ein und aus ===== */
+const chips = document.querySelectorAll('.chip');
+const karten = document.querySelectorAll('.karte');
+const hinweis = document.getElementById('hinweis');
+const namen = { sie: 'für sie', ihn: 'für ihn', eltern: 'für Eltern und Freunde' };
+
+chips.forEach(chip => chip.addEventListener('click', () => {
+  const war = chip.getAttribute('aria-pressed') === 'true';
+  chips.forEach(c => c.setAttribute('aria-pressed', 'false'));
+  const aktiv = war ? null : chip.dataset.filter;     /* zweiter Klick hebt den Filter auf */
+  if (aktiv) chip.setAttribute('aria-pressed', 'true');
+
+  let treffer = 0;
+  karten.forEach(k => {
+    const passt = !aktiv || k.dataset.for.split(' ').includes(aktiv);
+    k.hidden = !passt;
+    if (passt) { treffer++; k.classList.add('sichtbar'); }
+  });
+  hinweis.textContent = aktiv
+    ? treffer + (treffer === 1 ? ' Set passt ' : ' Sets passen ') + namen[aktiv] + '.'
+    : 'Aktuell sehen Sie alle drei Sets.';
+}));
+
+/* ===== Warenkorb-Zähler und Button-Rückmeldung ===== */
+const zahl = document.getElementById('korbZahl');
+let anzahl = 0;
+document.querySelectorAll('.kaufen').forEach(btn => btn.addEventListener('click', () => {
+  anzahl++;
+  zahl.textContent = anzahl;
+  zahl.hidden = false;
+  const alt = btn.textContent;
+  btn.textContent = 'Hinzugefügt';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = alt; btn.disabled = false; }, 1600);
+}));
+
+/* ===== FAQ als Akkordeon (immer nur eine Antwort offen) ===== */
+const fragen = document.querySelectorAll('#faq button');
+fragen.forEach(q => q.addEventListener('click', () => {
+  const offen = q.getAttribute('aria-expanded') === 'true';
+  fragen.forEach(x => {
+    x.setAttribute('aria-expanded', 'false');
+    document.getElementById(x.getAttribute('aria-controls')).classList.remove('offen');
+  });
+  if (!offen) {
+    q.setAttribute('aria-expanded', 'true');
+    document.getElementById(q.getAttribute('aria-controls')).classList.add('offen');
+  }
+}));
+</script>
+</body>
+</html>
